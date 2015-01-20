@@ -1,0 +1,80 @@
+\usepackage{hyperref}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{ifthen}
+
+\ifthenelse{\equal{\Sitzung}{Aktiventreffen}}{
+	\newcommand{\Artikel}{des}
+	\newcommand{\TOPnull}{Vorstellungsrunde}
+	\newcommand{\Zeit}{19:30 Uhr}
+}{
+	\newcommand{\Artikel}{der}
+	\ifthenelse{\equal{\Sitzung}{Vorstandssitzung}}{
+		\newcommand{\TOPnull}{Reflexion des letzten Treffens}
+		\newcommand{\Zeit}{20:00 Uhr}
+	}{
+		\newcommand{\TOPnull}{Formalia}
+		\newcommand{\Zeit}{19:30 Uhr}
+	}
+}
+\newcommand{\Titel}{Protokoll \Artikel~\Sitzung~der GJ Karlsruhe}
+
+% "TOP"s
+\renewcommand{\thesection}{TOP\arabic{section}:}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\setlength{\cftsecnumwidth}{1,4cm}
+\setcounter{section}{-2}
+
+% Hintergrundbild
+\newcommand\BackgroundPic{
+\put(0,0){
+\parbox[b][1.02\paperheight]{\paperwidth}{
+\begin{flushright}
+\includegraphics[width=\textwidth,
+keepaspectratio]{GJ_doc.jpg}
+\vfill
+\includegraphics[width=\textwidth,
+keepaspectratio]{GJ_doc2.jpg}
+\end{flushright}
+}}}
+
+% Titelseite
+\newcommand{\Titelseite}{
+\AddToShipoutPicture*{\BackgroundPic}
+\begin{titlepage}
+	\vspace*{\fill}
+	\begin{flushright}
+		Grüne Jugend Karlsruhe\\
+		Sophienstraße 58\\
+		76133 Karlsruhe\\
+		kontakt@gruene-jugend-karlsruhe.de\\
+		www.gruene-jugend-karlsruhe.de\\
+	\end{flushright}
+	\vspace*{2cm}
+	\begin{center}
+		{\fontsize{0.5cm}{0.5cm}\selectfont \textbf{\Titel}\\}
+		\vspace*{1cm}
+		\begin{tabular}{lcl}
+			Verfasser &:& \Autor \\[0.2cm]
+			Datum &:& \Datum \\
+			Uhrzeit &:& \Zeit + \Verspaetung \\
+			Dauer &:& \Dauer \\[0.3cm]
+			Ort &:& \Ort
+		\end{tabular}
+		\vspace*{4cm}
+		\begin{center}
+			\Vorstand
+		\end{center}
+	\end{center}
+	% Legende
+	\begin{table}[b]
+		\centering
+		\begin{tabular}{cl}
+			$(\,\cdot\,)$ & Kommentar des Autors \\
+			$[\,\cdot\,]$ & Verantwortliche Personen \\ 
+		\end{tabular}
+	\end{table}
+	\vspace*{\fill}
+\end{titlepage}
+}
